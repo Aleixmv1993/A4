@@ -77,10 +77,7 @@ class DB extends \PDO{
     }
     
     public function execute(){
-        
       return $this->stmt->execute();
-        //return $this->stmt->execute();
-        
     }
     
     public function resultSet(){
@@ -89,6 +86,20 @@ class DB extends \PDO{
     public function single(){
         return $this->stmt->fetch(\PDO::FETCH_ASSOC);              
     }
-            
+    
+    public function rowCount(){
+    	return $this->stmt->rowCount();
+    }
+    
+    //començar una transaccio de la base de dades.
+    public function beginTransaction(){
+        return $this->stmt->beginTransaction();
+    }
+    //depuracio de sentencies preparades.
+    public function debugDumpParams(){
+        return $this->stmt->debugDumpParams();
+    }
+
                 
 }
+
