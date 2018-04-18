@@ -1,7 +1,7 @@
 {
     "driver": "mysql",   
-    "dbhost": "172.17.0.2",
-    "dbuser": "root",
-    "dbname": "blog",
+    "dbhost": "127.0.0.1",
+    "dbuser": "amalaret_blogA4",
+    "dbname": "amalaret_blogA4",
     "dbpass": "linuxlinux"
 }

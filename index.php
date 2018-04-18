@@ -1,5 +1,10 @@
 <?php
 
+    
+    ini_set("display_errors", 1);
+    ini_set("display_startup_errors", 1);
+    error_reporting(E_ALL);
+
     require 'sys/DB.php';
     
     use App\sys\DB;
@@ -10,21 +15,56 @@
     $gdb = DB::getInstance();
       
 
-    $sql="SELECT * FROM users WHERE username = :username";
+    $sql="SELECT * FROM users WHERE user = :username";
+    
+    
+    $gdb->query($sql);
+        $user = "a.malaret";
+    $gdb->bind(':username', $user); 
 
-    $gdb->query($sql); 
-    $gdb->bind(':username', "AleixAdmin");
-    $res = $gdb->execute();
+    var_dump($gdb);
+    $gdb->execute();
+
+    echo "Consulta single";
+    echo "<p>". $gdb->single() ."</p>";
+   
+    
+    
 
     
-    if($res == 1){
-        $result = $gdb->single();
-        echo $result[username];
+    $sql2 ="INSERT INTO `user` (`id`, `user`, `email`, `password`) VALUES (NULL, 'test', 'test@gmail.com', 'linuxlinux');";
+    
+    $gdb->query($sql2); 
+    $res = $gdb->execute();
+    echo "lastInsertId";
+    print $gdb->lastInsertId();
+    print("\n");
+   
+
+    
+    $sql3 = "SELECT * FROM user";
+    
+    $gdb->query($sql3);
+    $gdb->execute();
+    
+
+    $count = $gdb->rowCount();
+    echo "rowCount";
+    echo $count;
+    print("\n");
+    
+    
+    $sql4="SELECT * FROM user";
+
+    $gdb->query($sql4); 
+    $res = $gdb->execute();
+    $rows = [];
+    $rows = $gdb->resultSet();
+    echo  "<p>Result set()</p>";
+    if($rows)
+    {
+        foreach($rows as $row)
+        {
+            echo "<p>".$row['user'] . " | " . $row['password'] . "</p>";       
+        }
     }
-    
-    $sql2 ="SELECT username FROM users WHERE rol = :rol";
-    
-    $gdb->query($sql); 
-    $gdb->bind(':rol', 1);
-    $res = $gdb->execute();
-
